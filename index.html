@@ -1,0 +1,1967 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CJS Wrapped 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --box-shadow-width: 4px;
+      --pixel-box-shadow:
+        calc(-1 * var(--box-shadow-width)) 0 0 0 #000,
+        var(--box-shadow-width) 0 0 0 #000,
+        0 calc(-1 * var(--box-shadow-width)) 0 0 #000,
+        0 var(--box-shadow-width) 0 0 #000;
+      --pixel-box-shadow-light:
+        calc(-1 * var(--box-shadow-width)) 0 0 0 rgba(255,255,255,0.3),
+        var(--box-shadow-width) 0 0 0 rgba(255,255,255,0.3),
+        0 calc(-1 * var(--box-shadow-width)) 0 0 rgba(255,255,255,0.3),
+        0 var(--box-shadow-width) 0 0 rgba(255,255,255,0.3);
+      --pixel-box-shadow-gold:
+        calc(-1 * var(--box-shadow-width)) 0 0 0 #ffd700,
+        var(--box-shadow-width) 0 0 0 #ffd700,
+        0 calc(-1 * var(--box-shadow-width)) 0 0 #ffd700,
+        0 var(--box-shadow-width) 0 0 #ffd700;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #ffd700;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --bg-dark: #0f0f23;
+      --bg-card: #1a1a2e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Press Start 2P', monospace;
+      background: var(--bg-dark);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 20px 20px;
+      min-height: 100vh;
+      color: #fff;
+      line-height: 1.8;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Hero Section - Pixel Art Style */
+    .hero {
+      text-align: center;
+      padding: 48px 24px;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--primary-dark) 100%);
+      margin: var(--box-shadow-width);
+      margin-bottom: 48px;
+      box-shadow: var(--pixel-box-shadow);
+      position: relative;
+      image-rendering: pixelated;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 4px dashed rgba(255,255,255,0.2);
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+      position: relative;
+      color: #fff;
+    }
+
+    .hero .year {
+      font-size: 4rem;
+      color: var(--accent);
+      text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+      position: relative;
+      animation: blink 1s step-end infinite alternate;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    .hero p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      position: relative;
+      margin-top: 16px;
+    }
+
+    /* Stats Grid - Pixel Art Style */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+      padding: var(--box-shadow-width);
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: var(--pixel-box-shadow-light);
+      margin: var(--box-shadow-width);
+      transition: transform 0.1s step-end;
+    }
+
+    .stat-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow:
+        calc(-1 * var(--box-shadow-width) + 2px) 2px 0 0 rgba(255,255,255,0.3),
+        calc(var(--box-shadow-width) + 2px) 2px 0 0 rgba(255,255,255,0.3),
+        2px calc(-1 * var(--box-shadow-width) + 2px) 0 0 rgba(255,255,255,0.3),
+        2px calc(var(--box-shadow-width) + 2px) 0 0 rgba(255,255,255,0.3);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      color: #00ff88;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .stat-label {
+      font-size: 0.6rem;
+      opacity: 0.7;
+      margin-top: 12px;
+      text-transform: uppercase;
+    }
+
+    /* Category Section - Pixel Art Style */
+    .category {
+      margin-bottom: 56px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      box-shadow: var(--pixel-box-shadow-light);
+    }
+
+    .category-emoji {
+      font-size: 1.8rem;
+    }
+
+    .category-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    /* Nomination Cards - Pixel Art Style */
+    .nominations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      padding: var(--box-shadow-width);
+    }
+
+    .nomination-card {
+      background: var(--bg-card);
+      padding: 20px;
+      position: relative;
+      box-shadow: var(--pixel-box-shadow);
+      margin: var(--box-shadow-width);
+      transition: transform 0.1s step-end;
+    }
+
+    .nomination-card:hover {
+      transform: translate(-2px, -2px);
+    }
+
+    .nomination-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        #ff6b6b 0px, #ff6b6b 8px,
+        #feca57 8px, #feca57 16px,
+        #48dbfb 16px, #48dbfb 24px,
+        #ff9ff3 24px, #ff9ff3 32px
+      );
+      image-rendering: pixelated;
+    }
+
+    .nomination-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      margin-top: 8px;
+    }
+
+    .nomination-emoji {
+      font-size: 2rem;
+    }
+
+    .nomination-info h3 {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .nomination-info p {
+      font-size: 0.6rem;
+      opacity: 0.6;
+      line-height: 1.6;
+    }
+
+    .winner {
+      background: rgba(255,215,0,0.1);
+      padding: 16px;
+      margin-top: 12px;
+      box-shadow:
+        inset 2px 0 0 0 var(--accent),
+        inset -2px 0 0 0 var(--accent),
+        inset 0 2px 0 0 var(--accent),
+        inset 0 -2px 0 0 var(--accent);
+    }
+
+    .winner-label {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+
+    .winner-name {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+    }
+
+    .winner-value {
+      font-size: 0.65rem;
+      opacity: 0.8;
+      margin-top: 8px;
+    }
+
+    .winner-extra {
+      font-size: 0.55rem;
+      opacity: 0.7;
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(0,0,0,0.3);
+      word-break: break-word;
+      border-left: 4px solid var(--primary);
+    }
+
+    .winner-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #00ff88;
+      text-decoration: none;
+      font-size: 0.55rem;
+      padding: 6px 12px;
+      background: rgba(0,255,136,0.1);
+      box-shadow:
+        inset 2px 0 0 0 #00ff88,
+        inset -2px 0 0 0 #00ff88,
+        inset 0 2px 0 0 #00ff88,
+        inset 0 -2px 0 0 #00ff88;
+    }
+
+    .winner-link:hover {
+      background: rgba(0,255,136,0.2);
+    }
+
+    .runners {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .runner {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      padding: 10px;
+      font-size: 0.55rem;
+      box-shadow:
+        inset 2px 0 0 0 rgba(255,255,255,0.2),
+        inset -2px 0 0 0 rgba(255,255,255,0.2),
+        inset 0 2px 0 0 rgba(255,255,255,0.2),
+        inset 0 -2px 0 0 rgba(255,255,255,0.2);
+    }
+
+    .runner-position {
+      opacity: 0.5;
+      font-size: 0.5rem;
+    }
+
+    .runner-name {
+      margin-top: 4px;
+      color: #c0c0c0;
+    }
+
+    /* Footer - Pixel Art Style */
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      opacity: 0.5;
+      font-size: 0.5rem;
+      border-top: 4px dashed rgba(255,255,255,0.1);
+      margin-top: 48px;
+    }
+
+    /* Animations - Retro Style */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scanline {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+
+    .category {
+      animation: fadeIn 0.3s step-end;
+    }
+
+    .nomination-card {
+      animation: fadeIn 0.3s step-end;
+    }
+
+    /* User Cards - Pixel Art Style */
+    .team-section {
+      margin-bottom: 56px;
+    }
+
+    .team-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.05);
+      box-shadow: var(--pixel-box-shadow-light);
+    }
+
+    .team-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .users-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      padding: var(--box-shadow-width);
+    }
+
+    .user-card {
+      background: var(--bg-card);
+      padding: 20px;
+      box-shadow: var(--pixel-box-shadow-light);
+      margin: var(--box-shadow-width);
+      transition: transform 0.1s step-end;
+    }
+
+    .user-card:hover {
+      transform: translate(-2px, -2px);
+    }
+
+    .user-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      box-shadow:
+        inset 2px 0 0 0 rgba(255,255,255,0.3),
+        inset -2px 0 0 0 rgba(0,0,0,0.3),
+        inset 0 2px 0 0 rgba(255,255,255,0.3),
+        inset 0 -2px 0 0 rgba(0,0,0,0.3);
+    }
+
+    .user-name {
+      font-size: 0.8rem;
+    }
+
+    .user-stats-mini {
+      display: none;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.5rem;
+      opacity: 0.6;
+      margin-top: 6px;
+    }
+
+    .user-stats-mini span {
+      padding: 2px 6px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .user-chart {
+      margin: 16px 0;
+      overflow-x: auto;
+      padding: 8px;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .user-chart svg {
+      display: block;
+      margin: 0 auto;
+    }
+
+    .user-chart svg rect {
+      /* Pixelated bars */
+    }
+
+    .user-evolution {
+      display: none;
+      background: rgba(0,0,0,0.3);
+      padding: 12px;
+      font-size: 0.6rem;
+      border-left: 4px solid var(--primary);
+    }
+
+    .evolution-trend {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .evolution-trend.increasing {
+      color: #00ff88;
+    }
+
+    .evolution-trend.decreasing {
+      color: #ff6b6b;
+    }
+
+    .evolution-trend.stable {
+      color: #48dbfb;
+    }
+
+    .evolution-style {
+      opacity: 0.7;
+      margin-bottom: 4px;
+    }
+
+    .evolution-summary {
+      opacity: 0.6;
+      font-size: 0.55rem;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    /* Pixel Badge */
+    .pixel-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 0.5rem;
+      background: var(--primary);
+      color: #fff;
+      box-shadow:
+        2px 0 0 0 #000,
+        -2px 0 0 0 #000,
+        0 2px 0 0 #000,
+        0 -2px 0 0 #000;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.2rem; }
+      .hero .year { font-size: 2.5rem; }
+      .nominations-grid { grid-template-columns: 1fr; }
+      .users-grid { grid-template-columns: 1fr; }
+      .stat-value { font-size: 1rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Scrollbar - Pixel Style */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      box-shadow:
+        inset 2px 0 0 0 rgba(255,255,255,0.3),
+        inset -2px 0 0 0 rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>CJS Wrapped</h1>
+      <div class="year">2025</div>
+      <p>Итоги года команды разработки</p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">1,275</div>
+        <div class="stat-label">Всего коммитов</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">699</div>
+        <div class="stat-label">Merge Requests</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">+1,439,896</div>
+        <div class="stat-label">Строк добавлено</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">-928,420</div>
+        <div class="stat-label">Строк удалено</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">8</div>
+        <div class="stat-label">Тимейтов</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">80</div>
+        <div class="stat-label">Репозиториев</div>
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <span class="category-emoji">⏰</span>
+        <h2 class="category-title">Режим дня</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🦉</span>
+            <div class="nomination-info">
+              <h3>Ночная сова</h3>
+              <p>Больше всего коммитов после 22:00</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">25 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">20 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">7 коммитов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🐦</span>
+            <div class="nomination-info">
+              <h3>Ранняя пташка</h3>
+              <p>Больше всего коммитов до 8:00</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">13 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">3 коммита</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">1 коммит</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📅</span>
+            <div class="nomination-info">
+              <h3>Выходной воин</h3>
+              <p>Больше всего коммитов в субботу/воскресенье</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">35 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">15 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">11 коммитов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🎯</span>
+            <div class="nomination-info">
+              <h3>Серийный коммитер</h3>
+              <p>Самый длинный стрик дней подряд</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">6 дней</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">ELena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">5 дней</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">5 дней</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📆</span>
+            <div class="nomination-info">
+              <h3>Понедельничный энтузиаст</h3>
+              <p>Больше всего коммитов в понедельник</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">87 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">34 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">33 коммитов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🎉</span>
+            <div class="nomination-info">
+              <h3>Пятничный деплойщик</h3>
+              <p>Больше всего коммитов в пятницу после 17:00</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">16 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">14 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">11 коммитов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">По коду</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🧹</span>
+            <div class="nomination-info">
+              <h3>Чистильщик</h3>
+              <p>Больше всего удалённых строк</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">280,525 строк</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">264,909 строк</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">204,740 строк</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📝</span>
+            <div class="nomination-info">
+              <h3>Писатель</h3>
+              <p>Больше всего добавленных строк</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">348,095 строк</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">295,359 строк</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">247,532 строк</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📁</span>
+            <div class="nomination-info">
+              <h3>Универсал</h3>
+              <p>Работал с наибольшим числом файлов</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">1109 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">710 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">528 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔬</span>
+            <div class="nomination-info">
+              <h3>Снайпер</h3>
+              <p>Много коммитов, мало изменений (точечные правки)</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">score: 0.60</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Sergey Tyapaev</div>
+              <div style="font-size:0.75rem;opacity:0.7">score: 0.31</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">score: 0.16</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">💣</span>
+            <div class="nomination-info">
+              <h3>Бомбардировщик</h3>
+              <p>Мало коммитов, много изменений</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">score: 129.00</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Iskander Muhutdinov</div>
+              <div style="font-size:0.75rem;opacity:0.7">score: 87.70</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">score: 78.30</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">По сообщениям коммитов</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔥</span>
+            <div class="nomination-info">
+              <h3>Горящая голова</h3>
+              <p>Больше всего "hotfix" в коммитах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">13 hotfix</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">10 hotfix</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Ravil Bashirov</div>
+              <div style="font-size:0.75rem;opacity:0.7">4 hotfix</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔧</span>
+            <div class="nomination-info">
+              <h3>Фиксер</h3>
+              <p>Больше всего "fix" в коммитах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">85 fix</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">67 fix</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">64 fix</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📖</span>
+            <div class="nomination-info">
+              <h3>Романист</h3>
+              <p>Самое длинное сообщение коммита</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Elena Popova</div>
+            <div class="winner-value">425 символов</div>
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">392 символов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Iskander Muhutdinov</div>
+              <div style="font-size:0.75rem;opacity:0.7">386 символов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">💬</span>
+            <div class="nomination-info">
+              <h3>Краткость — сестра</h3>
+              <p>Самое короткое сообщение коммита</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">3 символов</div>
+            <div class="winner-extra">"fix"</div>
+            <a class="winner-link" href="https://gitlab.acathasninthlives.com/csmoney/support/support-frontend/-/commit/bc0250745c9e91622255d1ada85c493eaa947af6" target="_blank">🔗 Посмотреть</a>
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">"fix"</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">"fixes"</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🎨</span>
+            <div class="nomination-info">
+              <h3>Рефакторер</h3>
+              <p>Больше всего "refactor" в коммитах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">8 refactor</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">6 refactor</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">5 refactor</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">✨</span>
+            <div class="nomination-info">
+              <h3>Фичеводец</h3>
+              <p>Больше всего "feat/feature/add"</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">100 feat</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">83 feat</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">69 feat</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">Code Review</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">👀</span>
+            <div class="nomination-info">
+              <h3>Ревью-чемпион</h3>
+              <p>Больше всего аппрувов MR</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">1036 аппрувов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">513 аппрувов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Iskander Muhutdinov</div>
+              <div style="font-size:0.75rem;opacity:0.7">75 аппрувов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🗣️</span>
+            <div class="nomination-info">
+              <h3>Придирчивый</h3>
+              <p>Больше всего комментариев к чужим MR</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">1428 комментариев</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">1027</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Iskander Muhutdinov</div>
+              <div style="font-size:0.75rem;opacity:0.7">189</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🐢</span>
+            <div class="nomination-info">
+              <h3>Марафонец</h3>
+              <p>Самый долгий MR</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">80 дн</div>
+            <div class="winner-extra">feat [ CFE-2255 ] Интегрировать FAQ в Reborn</div>
+            <a class="winner-link" href="https://gitlab.acathasninthlives.com/csmoney/web/frontend/reborn-csmoney/-/merge_requests/406" target="_blank">🔗 Посмотреть</a>
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">63 дн</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">61 дн</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">По репозиториям</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🌍</span>
+            <div class="nomination-info">
+              <h3>Путешественник</h3>
+              <p>Коммитит в наибольшее число репозиториев</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">55 репозиториев</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">20 репозиториев</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">15 репозиториев</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔀</span>
+            <div class="nomination-info">
+              <h3>Интегратор</h3>
+              <p>Больше всего кросс-репо изменений в один день</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">45 дней</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">36 дней</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">24 дня</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">По стэку/языкам</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">⚛️</span>
+            <div class="nomination-info">
+              <h3>React Guru</h3>
+              <p>Больше всего изменений в .tsx/.jsx файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">298 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">176 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Sergey Tyapaev</div>
+              <div style="font-size:0.75rem;opacity:0.7">91 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🎨</span>
+            <div class="nomination-info">
+              <h3>CSS художник</h3>
+              <p>Больше всего изменений в стилях</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">175 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">61 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Sergey Tyapaev</div>
+              <div style="font-size:0.75rem;opacity:0.7">58 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🟦</span>
+            <div class="nomination-info">
+              <h3>TypeScript чемпион</h3>
+              <p>Больше всего изменений в .ts файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">792 файла</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">449 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">410 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🧪</span>
+            <div class="nomination-info">
+              <h3>Тестировщик</h3>
+              <p>Больше всего изменений в тестовых файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">137 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">19 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">10 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📚</span>
+            <div class="nomination-info">
+              <h3>Документатор</h3>
+              <p>Больше всего изменений в .md файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">122 файла</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">47 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Sergey Tyapaev</div>
+              <div style="font-size:0.75rem;opacity:0.7">36 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">Галя, у нас отмена!</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔙</span>
+            <div class="nomination-info">
+              <h3>Revert король</h3>
+              <p>Больше всего реверт-коммитов</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">11 ревертов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">8 ревертов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">7 ревертов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔥</span>
+            <div class="nomination-info">
+              <h3>Горящий дедлайн</h3>
+              <p>Больше всего ревертов в пятницу</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">4 реверта</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">3 реверта</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">Инфраструктура</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🐳</span>
+            <div class="nomination-info">
+              <h3>Docker капитан</h3>
+              <p>Больше всего изменений в Docker файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">32 файла</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">30 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">15 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">☁️</span>
+            <div class="nomination-info">
+              <h3>Pulumi мастер</h3>
+              <p>Больше всего изменений в Pulumi файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">157 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">82 файла</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">66 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🛳️</span>
+            <div class="nomination-info">
+              <h3>Werf инженер</h3>
+              <p>Больше всего изменений в werf файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">2 файла</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">2 файла</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">1 файл</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🔧</span>
+            <div class="nomination-info">
+              <h3>CI/CD архитектор</h3>
+              <p>Больше всего изменений в CI/CD файлах</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Stas Batalov</div>
+            <div class="winner-value">8 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">8 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">7 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🏗️</span>
+            <div class="nomination-info">
+              <h3>Инфраструктурщик</h3>
+              <p>Общий топ по всем DevOps файлам</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">173 файлов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">108 файлов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Konstantin Sukovatij</div>
+              <div style="font-size:0.75rem;opacity:0.7">104 файлов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">CI/CD</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">💥</span>
+            <div class="nomination-info">
+              <h3>CI Breaker</h3>
+              <p>Чаще всего ломал CI pipeline в main/master</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Anton Antonov</div>
+            <div class="winner-value">334 сломанных pipeline</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">38 сломанных pipeline</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Elena Popova</div>
+              <div style="font-size:0.75rem;opacity:0.7">29 сломанных pipeline</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🛡️</span>
+            <div class="nomination-info">
+              <h3>CI Hero</h3>
+              <p>Самый надёжный CI (меньше всего сбоев) в main/master</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Ravil Bashirov</div>
+            <div class="winner-value">0% сбоев CI</div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="category">
+      <div class="category-header">
+        <h2 class="category-title">Неожиданные</h2>
+      </div>
+      <div class="nominations-grid">
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🎰</span>
+            <div class="nomination-info">
+              <h3>Счастливое число</h3>
+              <p>Больше всего коммитов с числом 7 в хэше</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">117 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">109 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Anton Antonov</div>
+              <div style="font-size:0.75rem;opacity:0.7">106 коммитов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">📅</span>
+            <div class="nomination-info">
+              <h3>Праздничный кодер</h3>
+              <p>Коммиты в праздничные дни</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Konstantin Sukovatij</div>
+            <div class="winner-value">9 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Arsen Gavrilenko</div>
+              <div style="font-size:0.75rem;opacity:0.7">6 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">2 коммита</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="nomination-card">
+          <div class="nomination-header">
+            <span class="nomination-emoji">🌙</span>
+            <div class="nomination-info">
+              <h3>Лунатик</h3>
+              <p>Коммиты в 3-5 утра</p>
+            </div>
+          </div>
+          <div class="winner">
+            <div class="winner-label">🏆 Победитель</div>
+            <div class="winner-name">Arsen Gavrilenko</div>
+            <div class="winner-value">5 коммитов</div>
+
+
+          </div>
+
+          <div class="runners">
+
+            <div class="runner">
+              <div class="runner-position">🥈</div>
+              <div class="runner-name">Iskander Muhutdinov</div>
+              <div style="font-size:0.75rem;opacity:0.7">2 коммитов</div>
+            </div>
+
+            <div class="runner">
+              <div class="runner-position">🥉</div>
+              <div class="runner-name">Stas Batalov</div>
+              <div style="font-size:0.75rem;opacity:0.7">1 коммитов</div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <p>Сгенерировано 31.12.2025 • CJS Wrapped 2025</p>
+    </footer>
+  </div>
+</body>
+</html>
